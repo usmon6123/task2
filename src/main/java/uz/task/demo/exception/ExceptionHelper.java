@@ -117,7 +117,7 @@ public class ExceptionHelper {
     @ExceptionHandler(value = {HttpRequestMethodNotSupportedException.class})
     public ResponseEntity<?> handleException(HttpRequestMethodNotSupportedException ex) {
         return new ResponseEntity<>(
-                new ApiResult<>("Method Not Allowed Userning bu yo'lga kirishga permissioni yoq", 405),
+                new ApiResult<>("Method Not Allowed", 405),
                 HttpStatus.METHOD_NOT_ALLOWED);
     }
 

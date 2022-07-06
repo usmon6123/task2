@@ -6,7 +6,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         enable_lazy_load_no_trans: true
@@ -15,7 +15,7 @@ spring:
             non_contextual_creation: true
   sql:
     init:
-      mode: always
+      mode: never
 #
 #logging:
 #  pattern:
@@ -27,6 +27,6 @@ spring:
 #    org.hibernate: ERROR
 
 
-dataLoaderMode: always  #always bo'lsa proekt run bo'lganda avtamat bazaga malumot qo'shadi(role, permission va h.k)
+dataLoaderMode: never  #always bo'lsa proekt run bo'lganda avtamat bazaga malumot qo'shadi(role, permission va h.k)
 
 

@@ -1,7 +1,7 @@
 server:
-  port: 8084
+  port: 8083
 spring:
   application:
-    name: SHOP-ERP
+    name: TASK2
   profiles:
     active: dev

@@ -12,4 +12,6 @@ public class Subject extends AbsIntegerEntity {
 
     private String name;
 
+
+
 }
