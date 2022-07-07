@@ -11,6 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor@NoArgsConstructor@Getter@Setter
 public class Group1 extends AbsIntegerEntity {
 
+
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -18,4 +19,12 @@ public class Group1 extends AbsIntegerEntity {
 
     //GURUH OCHILGAN YIL
     private int year;
+
+    private Boolean active = true;
+
+    public Group1(String name, Faculty faculty, int year) {
+        this.name = name;
+        this.faculty = faculty;
+        this.year = year;
+    }
 }

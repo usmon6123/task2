@@ -9,8 +9,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
-@Entity
 @AllArgsConstructor@NoArgsConstructor@Getter@Setter
+@Entity
+@Table(uniqueConstraints={
+        @UniqueConstraint(columnNames = {"name", "year"}),
+        @UniqueConstraint(columnNames = {"group1_id", "year"})
+})
 public class Journal extends AbsIntegerEntity {
 
     private String name;
@@ -21,5 +25,8 @@ public class Journal extends AbsIntegerEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Subject> subjects;
+
+    //jurnal tutilgan yil(guruhlarga har o'quv yilida yangisi tutiladi)
+    private int year;
 
 }

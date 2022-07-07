@@ -15,7 +15,6 @@ public class Faculty extends AbsIntegerEntity {
 
     private String name;
 
-    //BITTA UNIVERSITED HOLATI UCHUN OLIB KETYAPMAN
     @ManyToOne(fetch = FetchType.LAZY)
     private University university;
 

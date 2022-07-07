@@ -13,7 +13,10 @@ import javax.persistence.*;
 @Setter
 public class Mark extends AbsIntegerEntity {
 
-    private int mark;
+/* BU ENTITY TALABANING FAN BO'YICHA OLGAN YAKUNIY BAHOSINI
+   JURNALGA TUSHIRISH UCHUN */
+
+    private double mark;
 
     @JoinColumn(insertable = false, updatable = false, name = "group_id")
     @ManyToOne(fetch = FetchType.LAZY)

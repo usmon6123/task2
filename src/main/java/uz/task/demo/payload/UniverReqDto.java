@@ -1,13 +1,11 @@
 package uz.task.demo.payload;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import uz.task.demo.entity.University;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter@Setter
 public class UniverReqDto {
 
     private String name;

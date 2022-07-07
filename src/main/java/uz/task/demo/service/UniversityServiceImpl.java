@@ -10,6 +10,7 @@ import uz.task.demo.payload.ApiResult;
 import uz.task.demo.payload.UniverReqDto;
 import uz.task.demo.payload.UniverResDto;
 import uz.task.demo.repository.UniversityRepository;
+import uz.task.demo.service.basic.BaseService;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ public class UniversityServiceImpl implements UniversityService {
 
     private final UniversityRepository universityRepository;
     private final UniversityMapper universityMapper;
+    private final BaseService baseService;
 
     @Override
     public ApiResult<UniverResDto> add(UniverReqDto univerReqDto) {
@@ -40,7 +42,7 @@ public class UniversityServiceImpl implements UniversityService {
     public ApiResult<UniverResDto> getOne(Integer id) {
 
         //ID ORQALI UNIVERSITEDNI BAZADAN OLIBERADI TOPOLMASA THROW
-        University university = getUniversityElseThrowById(id);
+        University university = baseService.getUniversityOrElseThrowById(id);
 
         //UNIVERSITY DAGI MA'LUMOTLARNI DTOGA O'GIRIB QAYTARYAPDI
         return ApiResult.successResponse(universityMapper.universityToDto(university));
@@ -54,7 +56,7 @@ public class UniversityServiceImpl implements UniversityService {
         existsName(id, univerReqDto.getName());
 
         //ID ORQALI UNIVERSITEDNI BAZADAN OLIBERADI TOPOLMASA THROW
-        University university = getUniversityElseThrowById(id);
+        University university = baseService.getUniversityOrElseThrowById(id);
 
         //DTODAGI MALUMOTLARNI UNIVERSITYGA SET QILYAPDI
         universityMapper.updateUniversityWithDto(university, univerReqDto);
@@ -84,10 +86,7 @@ public class UniversityServiceImpl implements UniversityService {
 
 //-----------------------Yordamchi methodlar---------------------------
 
-    //ID ORQALI UNIVERSITEDNI BAZADAN OLIBERADI TOPOLMASA THROW
-    private University getUniversityElseThrowById(Integer id) {
-        return universityRepository.findById(id).orElseThrow(() -> RestException.notFound("UNIVERSITY NOT FOUND"));
-    }
+
 
     //ID ORQALI UNIVERSITEDNI BAZADAN QIDIRADI TOPOLMASA THROW
     private void existsOrElseThrowById(Integer id) {
