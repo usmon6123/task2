@@ -7,6 +7,7 @@ public interface RestConstants {
     String GROUP_CONTROLLER = BASE_PATH + "/group";
     String SUBJECT_CONTROLLER = BASE_PATH + "/subject";
     String STUDENT_CONTROLLER = BASE_PATH + "/student";
+    String JOURNAL_CONTROLLER = BASE_PATH + "/journal";
 
 
 

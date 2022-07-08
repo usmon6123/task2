@@ -22,10 +22,6 @@ public class Journal extends AbsIntegerEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Group1 group1;
 
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Subject> subjects;
-
     //jurnal tutilgan yil(guruhlarga har o'quv yilida yangisi tutiladi)
     private int year;
 

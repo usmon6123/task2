@@ -3,6 +3,7 @@ package uz.task.demo.exception;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.TypeMismatchException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -195,5 +196,13 @@ public class ExceptionHelper {
     public ResponseEntity<?> handleException(RestException ex) {
         return new ResponseEntity<>(new ApiResult<>(ex.getMessage(), ex.getStatus().value()), ex.getStatus());
     }
+
+    @ExceptionHandler(value = {DataIntegrityViolationException.class})
+    public ResponseEntity<?> handleException(DataIntegrityViolationException ex) {
+        return new ResponseEntity<>(new ApiResult<>("MA'LUMOTLAR BAZASIGA SAQLASHDA MUOMMO BO'LYAPDI",HttpStatus.BAD_REQUEST.value()),
+                                    HttpStatus.BAD_REQUEST);
+    }
+
+
 
 }

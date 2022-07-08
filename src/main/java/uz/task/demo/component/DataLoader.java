@@ -71,7 +71,7 @@ public class DataLoader implements CommandLineRunner {
             subjectRepository.saveAll(subjects);
 
             ArrayList<Journal> journals = new ArrayList<>();
-            journals.add(new Journal("Jurnal 830-19 2022",group830,subjects,2022));
+            journals.add(new Journal("Jurnal 830-19 2022",group830,2022));
             journalRepository.saveAll(journals);
         }
     }

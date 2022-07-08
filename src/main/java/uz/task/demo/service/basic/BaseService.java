@@ -2,10 +2,7 @@ package uz.task.demo.service.basic;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import uz.task.demo.entity.Faculty;
-import uz.task.demo.entity.Group1;
-import uz.task.demo.entity.Subject;
-import uz.task.demo.entity.University;
+import uz.task.demo.entity.*;
 import uz.task.demo.exception.RestException;
 import uz.task.demo.repository.*;
 
@@ -40,5 +37,14 @@ public class BaseService {
         return subjectRepository.findById(id).orElseThrow(() -> RestException.notFound("SUBJECT NOT FOUND"));
     }
 
+    //ID ORQALI STUDENTNI BAZADAN OLIBERADI TOPOLMASA THROW
+    public Student getStudentOrElseThrowById(Integer id){
+        return studentRepository.findById(id).orElseThrow(() -> RestException.notFound("STUDENT NOT FOUND"));
+    }
+
+    //ID ORQALI JOURNALTNI BAZADAN OLIBERADI TOPOLMASA THROW
+    public Journal getJournalOrElseThrowById(Integer id){
+        return journalRepository.findById(id).orElseThrow(() -> RestException.notFound("JOURNAL NOT FOUND"));
+    }
 
 }

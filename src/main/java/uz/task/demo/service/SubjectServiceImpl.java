@@ -41,10 +41,10 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public ApiResult<SubjectDtoForGroup> getAllByGroupId(Integer groupId,int year) {
+    public ApiResult<SubjectDtoForGroup> getAllByGroupId(Integer groupId) {
 
         //GURUHNING KIRITILGAN YILDAGI OTADIGAN FANLAR ROYHATI
-        List<Subject> subjectList = subjectRepository.findAllByGroupId(groupId, year);
+        List<Subject> subjectList = subjectRepository.findAllByGroupId(groupId);
 
         //LISTNI DTOGA O'GIRIB QAYTARYAPMIZ
         return ApiResult.successResponse(new SubjectDtoForGroup(groupId,subjectsToDtos(subjectList)));
@@ -52,7 +52,7 @@ public class SubjectServiceImpl implements SubjectService {
 
 
     @Override
-    public ApiResult<List<SubjectResDto>> getAll(Integer universityId) {
+    public ApiResult<List<SubjectResDto>> getAll() {
         List<Subject> subjectList = subjectRepository.findAll();
 
         return ApiResult.successResponse(subjectsToDtos(subjectList));
@@ -60,6 +60,9 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public ApiResult<?> edit(Integer id, SubjectReqDto subjectReqDto) {
+
+        //O'ZGARTIRMOQCHI BO'LGAN FAN NOMI BAZADA UNIQLIGINI TEKSHIRADI TOPILSA THROW
+        if (subjectRepository.existsUniqueName(id,subjectReqDto.getName())) throw RestException.alreadyExists("Yangilamoqchi bo'lgan faningiz bazada mavjud");
 
         //ID ORQALI SUBJECTNI BAZADAN OLIBERADI TOPOLMASA THROW
         Subject subject = baseService.getSubjectOrElseThrowById(id);

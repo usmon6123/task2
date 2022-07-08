@@ -2,9 +2,7 @@ package uz.task.demo.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
-import uz.task.demo.payload.ApiResult;
-import uz.task.demo.payload.CustomPage;
-import uz.task.demo.payload.GroupReqDto;
+import uz.task.demo.payload.*;
 import uz.task.demo.service.GroupService;
 
 @RestController
@@ -16,6 +14,11 @@ public class GroupControllerImpl implements GroupController {
     @Override
     public ApiResult<?> add(GroupReqDto groupReqDto) {
         return groupService.add(groupReqDto);
+    }
+
+    @Override
+    public ApiResult<?> attachSubjectsToGroup(SubjectListFromGroup subjectListFromGroup) {
+        return groupService.attachSubjectsToGroup(subjectListFromGroup);
     }
 
     @Override

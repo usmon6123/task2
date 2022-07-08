@@ -4,6 +4,7 @@ import lombok.*;
 import uz.task.demo.entity.template.AbsIntegerEntity;
 
 import javax.persistence.*;
+import java.util.List;
 
 //GROUP DEB NOMLANGANDA SQL EXSEPTION TASHLASHI MUMKINLIGIDAN GROUP1 GA O'ZGARTIRILDI
 @EqualsAndHashCode(callSuper = true)
@@ -19,6 +20,9 @@ public class Group1 extends AbsIntegerEntity {
 
     //GURUH OCHILGAN YIL
     private int year;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Subject> subjectList;
 
     private Boolean active = true;
 

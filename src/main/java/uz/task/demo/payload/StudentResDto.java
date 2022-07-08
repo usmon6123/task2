@@ -4,22 +4,26 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import uz.task.demo.entity.Group1;
+import uz.task.demo.entity.Student;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class StudentReqDto {
+public class StudentResDto {
 
-    private List<StudentDto> studentDtoList;
+    private Integer id;
 
-    @NotNull(message = "talaba guruhini kiriting")
+    private String name;
+
     private Integer groupId;
+
+    public StudentResDto(Student student) {
+        this.id = student.getId();
+        this.name = student.getName();
+        this.groupId = student.getGroup1().getId();
+    }
 }

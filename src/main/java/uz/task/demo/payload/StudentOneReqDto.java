@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import uz.task.demo.entity.Group1;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -16,9 +13,10 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class StudentReqDto {
+public class StudentOneReqDto {
 
-    private List<StudentDto> studentDtoList;
+    @NotBlank(message = "nom bo'sh bo'lmasin")
+    private String name;
 
     @NotNull(message = "talaba guruhini kiriting")
     private Integer groupId;

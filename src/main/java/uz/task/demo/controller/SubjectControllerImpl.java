@@ -25,13 +25,13 @@ public class SubjectControllerImpl implements SubjectController {
     }
 
     @Override
-    public ApiResult<SubjectDtoForGroup> getAllByGroupId(Integer groupId, int year) {
-        return subjectService.getOneByGroupId(groupId,year);
+    public ApiResult<SubjectDtoForGroup> getAllByGroupId(Integer groupId) {
+        return subjectService.getAllByGroupId(groupId);
     }
 
     @Override
-    public ApiResult<List<SubjectResDto>> getAll(Integer universityId) {
-        return subjectService.getAll(universityId);
+    public ApiResult<List<SubjectResDto>> getAll() {
+        return subjectService.getAll();
     }
 
     @Override

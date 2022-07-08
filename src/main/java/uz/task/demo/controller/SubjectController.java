@@ -17,12 +17,11 @@ public interface SubjectController {
     ApiResult<?> getOne(@PathVariable Integer id);
 
     //GURUHGA KIRITILGAN YILDA O'TADIGAN FANLAR RO'YHAT
-    @GetMapping("/get-all-by-group/{groupId}/{year}")
-    ApiResult<?> getAllByGroupId(@PathVariable Integer groupId,
-                                 @PathVariable int year);
+    @GetMapping("/get-all-by-group/{groupId}")
+    ApiResult<?> getAllByGroupId(@PathVariable Integer groupId);
 
-    @GetMapping("/get-all-by-univer-id/{universityId}")
-    ApiResult<?> getAll(@PathVariable Integer universityId);
+    @GetMapping("/get-all")
+    ApiResult<?> getAll();
 
     @PutMapping("/edit/{id}")
     ApiResult<?>edit(@PathVariable Integer id,@RequestBody SubjectReqDto subjectReqDto);

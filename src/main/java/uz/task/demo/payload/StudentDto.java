@@ -5,14 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class SubjectDtoForFaculty {
-   private Integer facultyId;
-   private List<SubjectDtoForGroup> subjectsGroupList;
+public class StudentDto {
+
+    @NotBlank(message = "nom bo'sh bo'lmasin")
+    private String name;
 
 }

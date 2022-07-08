@@ -25,17 +25,15 @@ public class FacultyServiceImpl implements FacultyService {
     @Override
     public ApiResult<?> add(FacultyReqDto facultyReqDto) {
 
-        //ID ORQALI UNIVERSITEDNI BAZADAN OLIBERADI TOPOLMASA THROW
-        University university = baseService.getUniversityOrElseThrowById(facultyReqDto.getUniversityId());
+        //DTODAGI MALUMOTLAR ORQALI ADD/EDIT QILSA BO'LADIMI YO'QMI TESHKIRADI NIMADIR QANOATLANTIRMASA THROW
+        University university = checkForAddOrEdit(facultyReqDto,null);
 
-        //FACULTED NOMLARI UNIQUELIGINI TEKSHIRADI BAZADA MAVJUD BO'LSA THROW
-        if (facultyRepository.existsByName(facultyReqDto.getName()))
-            throw RestException.alreadyExists("FACULTY ALREADY EXIST");
-
+        //DTO MA'LUMOTLARI ORQALI YANGI FACULTED YASAB BAZAGA SAQLAYAPDI
         Faculty faculty = facultyRepository.save(new Faculty(facultyReqDto.getName(), university));
 
         return ApiResult.successResponse("SUCCESS ADED FACULTY id : " + faculty.getId());
     }
+
 
     @Override
     public ApiResult<?> getOne(Integer id) {
@@ -50,17 +48,25 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Override
     public ApiResult<?> getAll(Integer universityId) {
+        //UNIVERSITEDNING BARCHA FACULTEDLARI
         List<Faculty> facultyList = facultyRepository.findAllByUniversity_Id(universityId);
 
+        //QAYTARISH UCHUN DTOGA O'RAB LISTGA YIG'YABMIZ FAKULTEDLARNI
         List<FacultyResDto> facultyResDtoList = facultyList.stream().map(FacultyResDto::new).collect(Collectors.toList());
 
         return ApiResult.successResponse(facultyResDtoList);
     }
 
-    //todo vaqt yetsa yozamiz Inshaalloh
     @Override
     public ApiResult<?> edit(Integer id, FacultyReqDto facultyReqDto) {
-        return ApiResult.successResponse("vaqt yetsa yozamiz Inshaalloh");
+
+        //DTODAGI MALUMOTLAR ORQALI ADD/EDIT QILSA BO'LADIMI YO'QMI TESHKIRADI NIMADIR QANOATLANTIRMASA THROW
+        University university = checkForAddOrEdit(facultyReqDto,id);
+
+        //DTODAGI MA'LUMOTLARNI FACULTEDGA SET QILIB BAZAGA SAQLAYDI XATOLIK BO'LSA THROW
+        mapDtoToFaculty(facultyReqDto,id,university);
+
+        return ApiResult.successResponse(facultyReqDto,"SUCCESS UPDATE FACULTY id : "+id);
     }
 
     @Override
@@ -74,5 +80,30 @@ public class FacultyServiceImpl implements FacultyService {
 
         facultyRepository.deleteById(id);
         return ApiResult.successResponse("SUCCESS DELETED FACULTY");
+    }
+
+
+    //    --------------------------HELPER METHOD-------------------------
+
+
+    //DTODAGI MALUMOTLAR ORQALI ADD/EDIT QILSA BO'LADIMI YO'QMI TESHKIRADI NIMADIR QANOATLANTIRMASA THROW
+    private University checkForAddOrEdit(FacultyReqDto facultyReqDto,Integer facultyId) {
+
+        //ID ORQALI UNIVERSITEDNI BAZADAN OLIBERADI TOPOLMASA THROW
+        University university = baseService.getUniversityOrElseThrowById(facultyReqDto.getUniversityId());
+
+        //FACULTED NOMLARI UNIQUELIGINI TEKSHIRADI BAZADA MAVJUD BO'LSA THROW
+        if (facultyRepository.existsByName(facultyId,facultyReqDto.getName()))
+            throw RestException.alreadyExists("FACULTY ALREADY EXIST");
+
+        return university;
+    }
+    //DTODAGI MA'LUMOTLARNI FACULTEDGA SET QILIB BAZAGA SAQLAYDI XATOLIK BO'LSA THROW
+    private void mapDtoToFaculty(FacultyReqDto facultyReqDto,Integer facultyId, University university){
+
+        Faculty faculty = baseService.getFacultyOrElseThrowById(facultyId);
+        faculty.setName(facultyReqDto.getName() != null? facultyReqDto.getName():faculty.getName());
+        faculty.setUniversity(university);
+        facultyRepository.save(faculty);
     }
 }

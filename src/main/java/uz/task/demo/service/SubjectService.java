@@ -10,9 +10,9 @@ public interface SubjectService {
 
     ApiResult<SubjectResDto> getOne(Integer id);
 
-    ApiResult<SubjectDtoForGroup> getAllByGroupId(Integer groupId,int year);
+    ApiResult<SubjectDtoForGroup> getAllByGroupId(Integer groupId);
 
-    ApiResult<List<SubjectResDto>> getAll(Integer universityId);
+    ApiResult<List<SubjectResDto>> getAll();
 
     ApiResult<?> edit(Integer id, SubjectReqDto subjectReqDto);
 

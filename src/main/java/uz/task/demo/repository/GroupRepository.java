@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import uz.task.demo.entity.Group1;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface GroupRepository extends JpaRepository<Group1, Integer> {
@@ -15,4 +16,7 @@ public interface GroupRepository extends JpaRepository<Group1, Integer> {
 
     @Query(value = "select count(*)>0 from journal as g where g.group1_id = :groupId",nativeQuery = true)
     boolean exists(@Param("groupId") Integer groupId);
+
+    @Query(value = "select * from group1 g where g.faculty_id = :facultyId",nativeQuery = true)
+    List<Group1> findAllByFacultyId(@Param("facultyId") Integer facultyId);
 }
